@@ -1,10 +1,14 @@
 const app = require('./app');
 const mongoose = require('mongoose');
+const {} = require("dotenv").config();
 
-mongoose.connect('mongodb+srv://you-username:your-password@cluster0.hodopj1.mongodb.net/')
+const mongooseString = process.env.DATA_BASE_URL;
+const PORT = process.env.PORT || 3000;
+
+mongoose.connect(mongooseString)
 .then( () => { 
     console.log("Connexion DB OK");
-    const server = app.listen(3000, () => {
+    const server = app.listen(PORT, () => {
         console.log('Serveur lancé avec succès !!');
     })
 })

@@ -12,7 +12,9 @@ exports.createUser = (req, res) => {
 }
 
 exports.getUser = (req, res) => {
-    res.end('get all user');
+    User.find(req.query)
+    .then( users => res.status(200).json(users))
+    .catch( error => res.status(400).json({ error }))
 }
 
 exports.deleteUser = (req, res) => {
@@ -20,9 +22,13 @@ exports.deleteUser = (req, res) => {
 }
 
 exports.updateUser = (req, res) => {
-    res.end('update user');
+    User.findOneAndUpdate({ _id: req.params.iduser}, { ...req.body, _id: req.params.iduser }, {new: true})
+    .then(user => res.status(200).json(user))
+    .catch(error => res.status(400).json({ error }))
 }
 
 exports.getUserById = (req, res) => {
-    res.end('get user by id');
+    User.findOne({ _id: req.params.iduser })
+    .then(user => res.status(200).json(user))
+    .catch( error => res.status(400).json({ error }))
 }
